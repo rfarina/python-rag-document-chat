@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("userInput").value;
+            const chatDisplay = document.getElementById("chatDisplay");
+
+            if (!userInput.trim()) {
+                alert("Please enter a valid message.");
+                return;
+            }
+
+            // Display user message
+            chatDisplay.innerHTML += `<div class="message user-message">${userInput}</div>`;
+
+            // Send the message to the server
+            try {
+                const response = await fetch("/query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userInput }),
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    chatDisplay.innerHTML += `<div class="message bot-message">${data.response}</div>`;
+                } else {
+                    chatDisplay.innerHTML += `<div class="message error-message">Error: ${data.response}</div>`;
+                }
+            } catch (error) {
+                chatDisplay.innerHTML += `<div class="message error-message">Error: Could not connect to server.</div>`;
+            }
+
+            document.getElementById("userInput").value = ""; // Clear input
+            chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to bottom
+        }
+    </script>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">How can I help?</div>
+        <div id="chatDisplay" class="chat-display"></div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Send a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</body>
+
+</html>

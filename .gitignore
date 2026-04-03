@@ -1,0 +1,43 @@
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+vector-store-env/    # Ignore your virtual environment directory
+
+# Jupyter Notebook Checkpoints
+*.ipynb
+.ipynb_checkpoints/
+
+# Logs and Debug Files
+*.log
+*.out
+*.err
+debug.log
+
+# Environment Variables and Secrets
+.env                 # Environment variable files (e.g., API keys)
+
+# Data Files
+data/raw/            # Raw data files (optional)
+data/processed/      # Processed data files (optional)
+
+# Temporary and Backup Files
+*.bak
+*.swp
+*.tmp
+*.~*
+
+# IDE and Editor Settings
+.vscode/             # VS Code project-specific settings
+.idea/               # JetBrains IDEs (PyCharm)
+*.sublime-workspace  # Sublime Text workspace settings
+
+# System Files
+.DS_Store            # macOS Finder metadata
+Thumbs.db            # Windows thumbnail cache
+
+# Virtual Environment
+vector-store-env/    # Ignore your virtual environment directory
+

@@ -1,0 +1,15 @@
+from src.vector_store import query_vector_store
+from src.openai_client import generate_response
+
+def process_query(user_input: str) -> str:
+    """Workflow to process a user query."""
+    try:
+        # Query vector store for relevant context
+        context = query_vector_store(user_input)
+
+        # Generate a response using OpenAI
+        response = generate_response(user_input, context)
+        return response
+
+    except Exception as e:
+        return f"Error processing your query: {e}"

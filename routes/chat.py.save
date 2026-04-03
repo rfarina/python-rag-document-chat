@@ -1,0 +1,26 @@
+from flask import Blueprint, render_template, request
+from src.workflows import process_query
+
+# Define a Blueprint for chat-related routes
+chat_bp = Blueprint("chat", __name__)
+
+@chat_bp.route("/", methods=["GET"])
+def index():
+    """Serve the chat user interface."""
+    # Renders the chat.html template
+    return render_template("chat.html")  # << THIS RENDERS chat.html
+
+@chat_bp.route("/query", methods=["POST"])
+def query():
+    """Handle user input and generate a response."""
+    user_input = request.form.get("prompt", "").strip()
+
+    if not user_input:
+        # Re-render chat.html with an error message
+        return render_template("chat.html", response="Please enter a valid prompt.")
+
+    # Process the user input and get a response
+    response = process_query(user_input)
+    
+    # Re-render chat.html with the response
+    return render_template("chat.html", response=response)  # << THIS ALSO RENDERS chat.html
