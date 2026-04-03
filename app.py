@@ -13,6 +13,7 @@ app.secret_key = "super-secret-key"  # Required for flash messages
 # Folder to store uploaded files
 UPLOAD_FOLDER = "resources"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {"pdf", "txt"}
 
 def allowed_file(filename):
@@ -111,5 +112,4 @@ def query():
 
 
 if __name__ == "__main__":
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure upload folder exists
     app.run(debug=True)
